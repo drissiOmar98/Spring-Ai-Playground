@@ -1,0 +1,158 @@
+### ============================================================
+### X MCP Client — Spring AI 2.0
+### ============================================================
+###
+### This HTTP file demonstrates the two REST endpoints exposed by
+### the application.
+###
+### 1. /docs
+###    Uses the X Documentation MCP server:
+###    https://docs.x.com/mcp
+###
+###    Claude can discover and invoke the documentation tools
+###    exposed by the remote MCP server.
+###
+###    No X Bearer Token is required.
+###
+### 2. /search
+###    Uses the live X API MCP server:
+###    https://api.x.com/mcp
+###
+###    Claude can discover and invoke X API tools to search recent
+###    posts. This requires X_BEARER_TOKEN to be configured.
+###
+### ============================================================
+
+
+### ------------------------------------------------------------
+### Demo 1 — Query the X API Documentation
+### ------------------------------------------------------------
+###
+### Endpoint:
+###   GET /docs
+###
+### What happens under the hood:
+###
+###   HTTP Client
+###       |
+###       v
+###   Spring Boot /docs
+###       |
+###       v
+###   ChatClient
+###       |
+###       v
+###   Claude
+###       |
+###       | AI decides a tool is needed
+###       v
+###   X Docs MCP Server
+###       |
+###       v
+###   Documentation Search Tool
+###       |
+###       v
+###   Claude generates the final answer
+###
+### The question is defined inside DocsController.
+### Claude uses the tools exposed by the `x-docs` MCP connection
+### to find the relevant X API documentation.
+###
+### No authentication is required for the X documentation server.
+
+GET http://localhost:8080/docs
+Accept: text/plain
+
+
+### ------------------------------------------------------------
+### Demo 2 — Search Recent X Posts
+### ------------------------------------------------------------
+###
+### Endpoint:
+###   GET /search?topic=<topic>
+###
+### The `topic` parameter is optional.
+###
+### If omitted, the controller uses:
+###
+###   Spring Boot 4.1
+###
+### The request is passed to Claude, which decides which tools
+### exposed by the `x-api` MCP server should be invoked.
+###
+### Authentication flow:
+###
+###   X_BEARER_TOKEN
+###          |
+###          v
+###   XApiAuthConfig
+###          |
+###          | Authorization: Bearer <token>
+###          v
+###   https://api.x.com/mcp
+###
+### The bearer token is added only to requests targeting
+### `api.x.com`.
+###
+### IMPORTANT:
+### Never put the actual X bearer token in this HTTP file.
+### Configure it as an environment variable instead.
+###
+
+GET http://localhost:8080/search?topic=Spring%20AI
+Accept: text/plain
+
+
+### ------------------------------------------------------------
+### Demo 2 — Search Another Topic
+### ------------------------------------------------------------
+###
+### The endpoint accepts any topic.
+###
+### Example:
+###   Spring Boot
+###   Java 21
+###   MCP
+###   AI Agents
+###   Kafka
+###   Kubernetes
+###
+### Claude will formulate the MCP tool call based on the
+### user's requested topic.
+
+GET http://localhost:8080/search?topic=AI%20Agents
+Accept: text/plain
+
+
+### ------------------------------------------------------------
+### Demo 2 — Search for MCP Discussions
+### ------------------------------------------------------------
+
+GET http://localhost:8080/search?topic=MCP
+Accept: text/plain
+
+
+### ============================================================
+### Expected Architecture
+### ============================================================
+###
+###                    Spring Boot 4.1
+###                          |
+###                     ChatClient
+###                          |
+###                       Claude
+###                    /           \
+###                   /             \
+###                  v               v
+###           X Docs MCP       X API MCP
+###             Server            Server
+###                |                 |
+###          Documentation       Live X API
+###             Tools              Tools
+###
+### Claude receives BOTH MCP tool sets through the shared
+### ToolCallbackProvider configured in ChatClientConfig.
+###
+### The model decides which tools to invoke based on the request.
+###
+### ============================================================
