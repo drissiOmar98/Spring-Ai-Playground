@@ -33,7 +33,7 @@ import org.springframework.util.StringUtils;
  * control.
  */
 @Configuration
-class XApiAuthConfig {
+public class XApiAuthConfig {
 
     @Bean
     McpClientCustomizer<HttpClientStreamableHttpTransport.Builder> xApiBearerAuth(
