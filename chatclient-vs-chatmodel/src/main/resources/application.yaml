@@ -1,3 +1,15 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: chatclient-vs-chatmodel
+
+  ai:
+    openai:
+      # Set the OPENAI_API_KEY environment variable before running the app.
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        model: gpt-4o-mini
+        temperature: 0.7
+
