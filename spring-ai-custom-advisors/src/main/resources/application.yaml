@@ -1,3 +1,10 @@
 spring:
   application:
-    name: spring-ai-custom-advisors
+    name: spring-ai-advisors-demo
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        temperature: 0.7
+        model: gpt-4o-mini
+
