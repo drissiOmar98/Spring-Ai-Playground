@@ -1,14 +1,14 @@
 package com.omar.spring_ai_custom_advisors.controller;
 
-import com.example.advisors.advisor.AvailableToolsLoggingAdvisor;
-import com.example.advisors.advisor.EmojiLoggingAdvisor;
-import com.example.advisors.advisor.TokenCounterAdvisor;
-import com.example.advisors.dto.TokenUsageSnapshot;
+
+import com.omar.spring_ai_custom_advisors.advisor.AvailableToolsLoggingAdvisor;
+import com.omar.spring_ai_custom_advisors.advisor.EmojiLoggingAdvisor;
+import com.omar.spring_ai_custom_advisors.advisor.TokenCounterAdvisor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +28,8 @@ public class AdvisorDemoController {
 	private static final String DEFAULT_QUESTION = "In Spring Boot, what's the practical difference between "
 			+ "constructor injection and field injection, and why is constructor injection preferred?";
 
-	private final ChatClient.Builder chatClientBuilder;
-	private final TokenCounterAdvisor tokenCounterAdvisor;
+	private final ChatClient chatClient;
+
 
 	/**
 	 * Demonstrates {@link AvailableToolsLoggingAdvisor}: watch the server console to see
@@ -41,8 +41,7 @@ public class AdvisorDemoController {
 	@GetMapping("/api/advisors/tools-logging")
 	public String toolsLogging(@RequestParam(defaultValue = DEFAULT_QUESTION) String question) {
 		log.info("[CONTROLLER] tools-logging demo - question='{}'", question);
-		return this.chatClientBuilder.build()
-			.prompt()
+		return chatClient.prompt()
 			.advisors(new AvailableToolsLoggingAdvisor())
 			.user(question)
 			.call()
@@ -51,7 +50,7 @@ public class AdvisorDemoController {
 
 	/**
 	 * Demonstrates {@link TokenCounterAdvisor}: each call adds to a running total you
-	 * can inspect via {@link #tokenUsage()}.
+	 * can inspect via {tokenUsage}.
 	 *
 	 * @param question the question to ask; defaults to a Spring Boot DI question
 	 * @return the model's answer
@@ -59,34 +58,14 @@ public class AdvisorDemoController {
 	@GetMapping("/api/advisors/token-counter")
 	public String tokenCounter(@RequestParam(defaultValue = DEFAULT_QUESTION) String question) {
 		log.info("[CONTROLLER] token-counter demo - question='{}'", question);
-		return this.chatClientBuilder.build()
+		return chatClient
 			.prompt()
-			.advisors(this.tokenCounterAdvisor)
+			.advisors(new TokenCounterAdvisor())
 			.user(question)
 			.call()
 			.content();
 	}
 
-	/**
-	 * Reads back the running token-usage totals collected by {@link TokenCounterAdvisor}
-	 * across every call made through this application so far.
-	 *
-	 * @return the current usage snapshot
-	 */
-	@GetMapping("/api/advisors/token-counter/usage")
-	public TokenUsageSnapshot tokenUsage() {
-		log.info("[CONTROLLER] token-counter usage snapshot requested");
-		return this.tokenCounterAdvisor.snapshot();
-	}
-
-	/**
-	 * Resets the running token-usage totals back to zero.
-	 */
-	@PostMapping("/api/advisors/token-counter/reset")
-	public void resetTokenUsage() {
-		log.info("[CONTROLLER] token-counter usage reset");
-		this.tokenCounterAdvisor.reset();
-	}
 
 	/**
 	 * Demonstrates {@link EmojiLoggingAdvisor}: check the application's DEBUG logs for
@@ -98,7 +77,7 @@ public class AdvisorDemoController {
 	@GetMapping("/api/advisors/emoji-logging")
 	public String emojiLogging(@RequestParam(defaultValue = DEFAULT_QUESTION) String question) {
 		log.info("[CONTROLLER] emoji-logging demo - question='{}'", question);
-		return this.chatClientBuilder.build()
+		return chatClient
 			.prompt()
 			.advisors(new EmojiLoggingAdvisor())
 			.user(question)
@@ -117,9 +96,9 @@ public class AdvisorDemoController {
 	@GetMapping("/api/advisors/combined")
 	public String combined(@RequestParam(defaultValue = DEFAULT_QUESTION) String question) {
 		log.info("[CONTROLLER] combined advisors demo - question='{}'", question);
-		return this.chatClientBuilder.build()
+		return chatClient
 			.prompt()
-			.advisors(new AvailableToolsLoggingAdvisor(), this.tokenCounterAdvisor, new EmojiLoggingAdvisor())
+			.advisors(new AvailableToolsLoggingAdvisor(), new TokenCounterAdvisor(), new EmojiLoggingAdvisor())
 			.user(question)
 			.call()
 			.content();
