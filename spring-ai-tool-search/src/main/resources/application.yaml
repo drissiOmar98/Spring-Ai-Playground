@@ -1,3 +1,35 @@
 spring:
   application:
-    name: spring-ai-tool-search
+    name: tool-search
+
+  threads:
+    virtual:
+      enabled: true
+
+  ai:
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY}
+      chat:
+        # High-capacity model used for reasoning and multi-step tool execution calls
+        model: claude-opus-4-8
+
+    chat:
+      client:
+        tool-search-advisor:
+          # Enable the ToolSearchAdvisor to intercept prompts and filter tools before LLM execution
+          enabled: true
+
+          # Defines the tool discovery strategy.
+          # Options:
+          #   - VECTOR: Uses VectorToolIndex (requires a VectorStore bean) for semantic similarity matching.
+          #   - KEYWORD: Uses Lucene-based keyword matching (default fallback when no VectorStore is present).
+          tool-index-type: vector
+
+          # Sets the maximum number of relevant tools to inject into the LLM context window per turn.
+          # Controls top-k tool retrieval to enforce context reduction and prevent token bloat.
+          max-results: 3
+
+          # Retains previously discovered tools across multi-turn tool calling loops.
+          # When enabled, tools retrieved in earlier reasoning steps remain available to the LLM
+          # until the full execution sequence completes.
+          reference-tool-name-accumulation: true
