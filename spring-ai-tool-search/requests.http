@@ -1,0 +1,15 @@
+### Variables
+@baseUrl = http://localhost:8080
+@question = What is tomorrow's date?
+
+### Baseline — no tools registered
+GET {{baseUrl}}/before?message={{question}}
+
+### Naive approach — all 47 tools loaded into every request (~5,141 tokens)
+GET {{baseUrl}}/after?message={{question}}
+
+### Tool Search — dynamic tool discovery via vector search (~1,166 tokens)
+GET {{baseUrl}}/tool-search?message={{question}}
+
+### Custom question example
+GET {{baseUrl}}/tool-search?message=What is the weather like in Paris?
