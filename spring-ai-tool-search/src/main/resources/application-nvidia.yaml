@@ -1,0 +1,17 @@
+spring:
+  ai:
+    model:
+      chat: openai   # NVIDIA is accessed via the OpenAI-compatible client
+    openai:
+      api-key: ${NVIDIA_API_KEY}
+      base-url: https://integrate.api.nvidia.com
+      chat:
+        model: meta/llama-3.1-70b-instruct
+        max-tokens: 2048
+    chat:
+      client:
+        tool-search-advisor:
+          enabled: true
+          tool-index-type: vector
+          max-results: 3
+          reference-tool-name-accumulation: true
