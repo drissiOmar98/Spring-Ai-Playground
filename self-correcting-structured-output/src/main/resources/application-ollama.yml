@@ -1,0 +1,11 @@
+spring:
+  ai:
+    # Both the ollama and openai starters are on the classpath (the nvidia profile
+    # needs the latter), so this tells Spring AI which one wins the ChatClient bean.
+    model:
+      chat: ollama
+    ollama:
+      chat:
+        model: llama3.2:1b
+        options:
+          temperature: 0.1

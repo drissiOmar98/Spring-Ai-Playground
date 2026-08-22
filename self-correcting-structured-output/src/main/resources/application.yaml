@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: self-correcting-structured-output
+  profiles:
+    active: ollama # switch to "nvidia" or "anthropic" to run against those instead
+
+# Watch validation fail, the error gets fed back, and the retry succeeds
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor.StructuredOutputValidationAdvisor: DEBUG

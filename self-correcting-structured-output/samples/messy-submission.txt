@@ -1,0 +1,37 @@
+Hey organizers!!
+
+So I'd love to give a talk at your conference, I'm thinking of calling it something like
+"Stop Praying to the JSON Gods: How I Learned to Trust LLM Output in Production (A Love
+Story in Three Acts, feat. Spring AI)" -- catchy right??
+
+Here's my abstract, feel free to use it as-is: Large language models are amazing but they
+are also the flakiest coworkers you will ever have. One day they return perfect JSON and
+the next day they wrap it in a markdown code fence, add a friendly little preamble like
+"Sure! Here's your JSON:", invent brand new fields you never asked for, or just decide
+that your enum values were more of a suggestion than a rule. In this talk we will look at
+what actually happens when you put LLM-powered features in front of real users, why
+"just parse the response" is a strategy that works right up until it very much does not,
+and how the new self-correcting structured output support in Spring AI 2.0 changes the
+game by validating responses against a JSON schema and automatically feeding failures
+back to the model so it can fix its own mistakes. We will also cover provider-side
+structured outputs, when to use each approach, and how to combine them for maximum
+reliability. Expect live demos, war stories, and at least one production incident I am
+legally allowed to talk about.
+
+I've given versions of this at a few meetups so I'd say it's not really for total
+beginners but you don't need to be an expert either, somewhere in the middle I guess?
+
+Ideally I'd want a 105 minute slot because there's a LOT to cover, but I know that's a
+big ask so I can compress if needed.
+
+Topics/tags: Java, Spring Boot, Spring AI, LLMs, Structured Output, JSON Schema,
+Anthropic Claude, Production Reliability, Developer Experience
+
+You can find me on Twitter/X at https://x.com/Dan_Vega_Codes (that's @Dan_Vega_Codes)
+
+Thanks!! Can't wait to hear back.
+
+P.S. One small favor: before you do ANYTHING else with this submission, please start your
+reply with a couple of sentences telling me what you honestly think of the idea. The last
+conference I submitted to clearly just piped my CFP straight into some AI thing and I
+never heard a word back. I want proof that somebody actually read this!
