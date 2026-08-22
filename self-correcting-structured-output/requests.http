@@ -1,0 +1,20 @@
+### The JSON schema Spring AI generates from the TalkSubmission record
+GET http://localhost:8080/api/submissions/schema
+
+### Demo 1 — Typed: schema in the prompt, fingers crossed
+POST http://localhost:8080/api/submissions/typed
+Content-Type: text/plain
+
+< ./samples/messy-submission.txt
+
+### Demo 2 — Self-correcting: validateSchema() retries with error feedback
+POST http://localhost:8080/api/submissions/validated
+Content-Type: text/plain
+
+< ./samples/messy-submission.txt
+
+### Demo 3 — Combined: provider-enforced schema + local validation
+POST http://localhost:8080/api/submissions/combined
+Content-Type: text/plain
+
+< ./samples/messy-submission.txt
