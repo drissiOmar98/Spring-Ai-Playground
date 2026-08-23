@@ -1,0 +1,10 @@
+spring:
+  ai:
+    model:
+      chat: openai
+    openai:
+      api-key: ${NVIDIA_API_KEY}
+      base-url: https://integrate.api.nvidia.com
+      chat:
+        model: meta/llama-3.1-70b-instruct
+        temperature: 0.1
