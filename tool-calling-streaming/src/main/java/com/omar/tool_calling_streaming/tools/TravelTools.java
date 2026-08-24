@@ -134,6 +134,25 @@ public class TravelTools {
     }
 
     /**
+     * Estimates typical nightly accommodation cost for a city.
+     *
+     * @param city     the destination city
+     * @param style    lodging style, e.g. {@code "budget"}, {@code "mid-range"}, {@code "luxury"}
+     * @return a short natural-language nightly-cost estimate
+     */
+    @Tool(description = "Get a rough nightly accommodation price estimate for a city and lodging style "
+            + "(style is one of: budget, mid-range, luxury)")
+    public String estimateAccommodationCost(String city, String style) {
+        pause();
+        String range = switch (style.toLowerCase(Locale.ENGLISH)) {
+            case "luxury" -> "$350-$600/night";
+            case "mid-range" -> "$150-$280/night";
+            default -> "$70-$130/night";
+        };
+        return city + " (" + style + "): roughly " + range + ", excluding taxes and fees.";
+    }
+
+    /**
      * Blocks briefly so a demo viewer has time to see the "Calling..." pill
      * before the tool result arrives. Not needed outside a live demo.
      */
