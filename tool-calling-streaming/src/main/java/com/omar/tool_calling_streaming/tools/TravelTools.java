@@ -86,6 +86,23 @@ public class TravelTools {
     }
 
     /**
+     * Suggests what to pack for a city and date range, based on typical
+     * conditions and planned activities.
+     *
+     * @param city      the destination city
+     * @param startDate ISO date ({@code yyyy-MM-dd}), inclusive
+     * @param endDate   ISO date ({@code yyyy-MM-dd}), inclusive
+     * @return a short natural-language packing suggestion
+     */
+    @Tool(description = "Suggest what to pack for a city and date range (dates in ISO format yyyy-MM-dd)")
+    public String getPackingSuggestions(String city, String startDate, String endDate) {
+        pause();
+        return "Layers for warm days and cool evenings, a light rain jacket for midweek storms, "
+                + "comfortable walking shoes, and a light windbreaker for the lakefront. "
+                + "Pack one outfit sturdy enough for a stadium visit.";
+    }
+
+    /**
      * Blocks briefly so a demo viewer has time to see the "Calling..." pill
      * before the tool result arrives. Not needed outside a live demo.
      */
