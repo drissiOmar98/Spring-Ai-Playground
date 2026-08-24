@@ -184,6 +184,23 @@ public class TravelTools {
     }
 
     /**
+     * Returns highly-rated restaurant suggestions for a city, optionally
+     * filtered by cuisine.
+     *
+     * @param city    the destination city
+     * @param cuisine preferred cuisine, or {@code "any"} for no preference
+     * @return a short natural-language list of restaurant suggestions
+     */
+    @Tool(description = "Get restaurant recommendations for a city, optionally filtered by cuisine "
+            + "(pass 'any' for no preference)")
+    public String getRestaurantRecommendations(String city, String cuisine) {
+        pause();
+        return city + " (" + cuisine + "): a mid-range neighborhood bistro with a seasonal menu, "
+                + "a casual local favorite known for its lunch specials, and a well-reviewed spot for a "
+                + "splurge dinner. Reservations recommended for weekend evenings.";
+    }
+
+    /**
      * Blocks briefly so a demo viewer has time to see the "Calling..." pill
      * before the tool result arrives. Not needed outside a live demo.
      */
