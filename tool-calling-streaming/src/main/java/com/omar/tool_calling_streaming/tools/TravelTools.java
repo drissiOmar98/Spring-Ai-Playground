@@ -169,6 +169,21 @@ public class TravelTools {
     }
 
     /**
+     * Returns local public transit options and a rough single-fare cost for
+     * a city.
+     *
+     * @param city the destination city
+     * @return a short natural-language transit summary
+     */
+    @Tool(description = "Get public transit options and typical fares for getting around a city")
+    public String getPublicTransitOptions(String city) {
+        pause();
+        return city + ": subway and bus network covers most neighborhoods, single fare ~$2.50, "
+                + "a 7-day unlimited pass is usually the better deal for visitors. Rideshare is widely available "
+                + "as a backup for late-night trips.";
+    }
+
+    /**
      * Blocks briefly so a demo viewer has time to see the "Calling..." pill
      * before the tool result arrives. Not needed outside a live demo.
      */
