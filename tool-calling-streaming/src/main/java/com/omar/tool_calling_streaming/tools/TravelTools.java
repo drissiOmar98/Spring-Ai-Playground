@@ -115,6 +115,25 @@ public class TravelTools {
     }
 
     /**
+     * Returns a rough round-trip flight price estimate between two cities
+     * for a date range.
+     *
+     * @param originCity      the departure city
+     * @param destinationCity the arrival city
+     * @param startDate       ISO date ({@code yyyy-MM-dd}) of departure
+     * @param endDate         ISO date ({@code yyyy-MM-dd}) of return
+     * @return a short natural-language price-range estimate
+     */
+    @Tool(description = "Get a rough round-trip flight price estimate between two cities for a date range "
+            + "(dates in ISO format yyyy-MM-dd)")
+    public String estimateFlightPrice(String originCity, String destinationCity, String startDate, String endDate) {
+        pause();
+        return "Round-trip " + originCity + " \u2192 " + destinationCity + " (" + startDate + " to " + endDate
+                + "): roughly $280-$420 economy, depending on how far ahead you book. "
+                + "Midweek departures tend to run cheaper than weekend ones.";
+    }
+
+    /**
      * Blocks briefly so a demo viewer has time to see the "Calling..." pill
      * before the tool result arrives. Not needed outside a live demo.
      */
