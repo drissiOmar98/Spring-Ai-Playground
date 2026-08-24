@@ -67,6 +67,24 @@ public class TravelTools {
                 + "Riverwalk food festival all week.";
     }
 
+
+    /**
+     * Converts an amount from one currency to another.
+     *
+     * @param amount       the amount to convert
+     * @param fromCurrency ISO 4217 currency code, e.g. {@code "USD"}
+     * @param toCurrency   ISO 4217 currency code, e.g. {@code "EUR"}
+     * @return a short natural-language conversion summary
+     */
+    @Tool(description = "Convert an amount from one currency to another (ISO 4217 codes, e.g. USD, EUR, JPY)")
+    public String convertCurrency(double amount, String fromCurrency, String toCurrency) {
+        pause();
+        double rate = 0.92; // placeholder — wire up a real FX rate provider
+        return String.format("%.2f %s \u2248 %.2f %s (rate used: %.4f, illustrative only)",
+                amount, fromCurrency.toUpperCase(Locale.ENGLISH), amount * rate,
+                toCurrency.toUpperCase(Locale.ENGLISH), rate);
+    }
+
     /**
      * Blocks briefly so a demo viewer has time to see the "Calling..." pill
      * before the tool result arrives. Not needed outside a live demo.
