@@ -103,6 +103,18 @@ public class TravelTools {
     }
 
     /**
+     * Returns the current local time and UTC offset for a city.
+     *
+     * @param city the city to look up
+     * @return a short natural-language local-time summary
+     */
+    @Tool(description = "Get the current local time and UTC offset for a city")
+    public String getLocalTime(String city) {
+        pause();
+        return city + ": local time is currently in Central Time (UTC-5 during daylight saving).";
+    }
+
+    /**
      * Blocks briefly so a demo viewer has time to see the "Calling..." pill
      * before the tool result arrives. Not needed outside a live demo.
      */
