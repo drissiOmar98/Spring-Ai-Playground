@@ -153,6 +153,22 @@ public class TravelTools {
     }
 
     /**
+     * Returns entry requirements (visa, passport validity) for a traveler's
+     * nationality visiting a given country.
+     *
+     * @param nationality  the traveler's nationality, e.g. {@code "US citizen"}
+     * @param destinationCountry the country being visited
+     * @return a short natural-language entry-requirements summary
+     */
+    @Tool(description = "Get visa and entry requirements for a traveler's nationality visiting a destination country")
+    public String getVisaRequirements(String nationality, String destinationCountry) {
+        pause();
+        return nationality + " visiting " + destinationCountry
+                + ": no visa required for stays under 90 days; passport must be valid for at least 6 months "
+                + "beyond the travel dates. Always verify with the destination's official consulate before booking.";
+    }
+
+    /**
      * Blocks briefly so a demo viewer has time to see the "Calling..." pill
      * before the tool result arrives. Not needed outside a live demo.
      */
