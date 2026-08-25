@@ -5,6 +5,20 @@ spring:
     openai:
       api-key: ${OPENAI_API_KEY}
 
+guardrails:
+  sensitive-words:
+    - pass
+  secrets:
+    - SUNRISE50
+  blocked-phrases:
+    - password
+    - admin credential
+    - secret key
+    - ignore previous instructions
+    - ignore your instructions
+    - disregard the system prompt
+    - you are now
+
 logging:
   level:
     org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor: DEBUG
