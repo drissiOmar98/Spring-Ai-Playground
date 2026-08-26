@@ -1,0 +1,8 @@
+### Layer 4b: PII masking - correct order (mask runs before the logger)
+### Watch the console: the logged request is already masked.
+GET http://localhost:8080/api/pii/masked-before-log?message=My name is Dan Vega (dan.vega@yahoo.com) and my card 4111 1111 1111 1111 was double charged, can you help me?
+
+### Layer 4b: PII masking - wrong order (logger forced to run first)
+### Watch the console: the raw email and card number are logged even though
+### the caller still gets a masked/clean response.
+GET http://localhost:8080/api/pii/logger-runs-first?message=My name is Dan Vega (dan.vega@yahoo.com) and my card 4111 1111 1111 1111 was double charged, can you help me?
